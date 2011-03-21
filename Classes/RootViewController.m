@@ -1,6 +1,6 @@
 // 
 // RootViewController.m
-// Copyright (C) 2011 by Warren Moore
+// Copyright (C) 2011 by Auerhaus Development, LLC
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -26,82 +26,6 @@
 
 @implementation RootViewController
 @synthesize lastSelectedPurchaseButton;
-
-#pragma mark -
-#pragma mark View lifecycle
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-
-	[self setTitle:@"Store"];
-	
-	products = [[NSArray arrayWithObjects:
-				 [NSMutableDictionary dictionaryWithObjectsAndKeys:
-				  @"Hydrogen", @"Name", 
-				  [NSNumber numberWithDouble:0.99], @"Price", 
-				  [NSNumber numberWithBool:NO], @"Purchased",
-				  nil],
-				 [NSMutableDictionary dictionaryWithObjectsAndKeys:
-				  @"Helium", @"Name", 
-				  [NSNumber numberWithDouble:0.99], @"Price", 
-				  [NSNumber numberWithBool:NO], @"Purchased",
-				  nil],
-				 [NSMutableDictionary dictionaryWithObjectsAndKeys:
-				  @"Lithium", @"Name", 
-				  [NSNumber numberWithDouble:1.99], @"Price", 
-				  [NSNumber numberWithBool:NO], @"Purchased",
-				  nil],
-				 [NSMutableDictionary dictionaryWithObjectsAndKeys:
-				  @"Beryllium", @"Name", 
-				  [NSNumber numberWithDouble:1.99], @"Price", 
-				  [NSNumber numberWithBool:NO], @"Purchased",
-				  nil],
-				 [NSMutableDictionary dictionaryWithObjectsAndKeys:
-				  @"Boron", @"Name", 
-				  [NSNumber numberWithDouble:1.99], @"Price", 
-				  [NSNumber numberWithBool:NO], @"Purchased",
-				  nil],
-				 [NSMutableDictionary dictionaryWithObjectsAndKeys:
-				  @"Carbon", @"Name", 
-				  [NSNumber numberWithDouble:1.99], @"Price", 
-				  [NSNumber numberWithBool:NO], @"Purchased",
-				  nil],
-				 [NSMutableDictionary dictionaryWithObjectsAndKeys:
-				  @"Nitrogen", @"Name", 
-				  [NSNumber numberWithDouble:1.99], @"Price", 
-				  [NSNumber numberWithBool:NO], @"Purchased",
-				  nil],
-				 [NSMutableDictionary dictionaryWithObjectsAndKeys:
-				  @"Oxygen", @"Name", 
-				  [NSNumber numberWithDouble:1.99], @"Price", 
-				  [NSNumber numberWithBool:NO], @"Purchased",
-				  nil],
-				 [NSMutableDictionary dictionaryWithObjectsAndKeys:
-				  @"Fluorine", @"Name", 
-				  [NSNumber numberWithDouble:1.99], @"Price", 
-				  [NSNumber numberWithBool:NO], @"Purchased",
-				  nil],
-				 [NSMutableDictionary dictionaryWithObjectsAndKeys:
-				  @"Neon", @"Name", 
-				  [NSNumber numberWithDouble:9.99], @"Price", 
-				  [NSNumber numberWithBool:NO], @"Purchased",
-				  nil],
-				 [NSMutableDictionary dictionaryWithObjectsAndKeys:
-				  @"Sodium", @"Name", 
-				  [NSNumber numberWithDouble:2.99], @"Price", 
-				  [NSNumber numberWithBool:NO], @"Purchased",
-				  nil],
-				 [NSMutableDictionary dictionaryWithObjectsAndKeys:
-				  @"Magnesium", @"Name", 
-				  [NSNumber numberWithDouble:2.99], @"Price", 
-				  [NSNumber numberWithBool:NO], @"Purchased",
-				  nil],
-				 nil] retain];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	return YES;
-}
 
 #pragma mark -
 #pragma mark Purchase button events
@@ -227,7 +151,83 @@
 }
 
 #pragma mark -
-#pragma mark Memory management
+#pragma mark View lifecycle management
+
+#pragma mark -
+#pragma mark View lifecycle
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+	
+	[self setTitle:@"Store"];
+	
+	products = [[NSArray arrayWithObjects:
+				 [NSMutableDictionary dictionaryWithObjectsAndKeys:
+				  @"Hydrogen", @"Name", 
+				  [NSNumber numberWithDouble:0.99], @"Price", 
+				  [NSNumber numberWithBool:NO], @"Purchased",
+				  nil],
+				 [NSMutableDictionary dictionaryWithObjectsAndKeys:
+				  @"Helium", @"Name", 
+				  [NSNumber numberWithDouble:0.99], @"Price", 
+				  [NSNumber numberWithBool:NO], @"Purchased",
+				  nil],
+				 [NSMutableDictionary dictionaryWithObjectsAndKeys:
+				  @"Lithium", @"Name", 
+				  [NSNumber numberWithDouble:1.99], @"Price", 
+				  [NSNumber numberWithBool:NO], @"Purchased",
+				  nil],
+				 [NSMutableDictionary dictionaryWithObjectsAndKeys:
+				  @"Beryllium", @"Name", 
+				  [NSNumber numberWithDouble:1.99], @"Price", 
+				  [NSNumber numberWithBool:NO], @"Purchased",
+				  nil],
+				 [NSMutableDictionary dictionaryWithObjectsAndKeys:
+				  @"Boron", @"Name", 
+				  [NSNumber numberWithDouble:1.99], @"Price", 
+				  [NSNumber numberWithBool:NO], @"Purchased",
+				  nil],
+				 [NSMutableDictionary dictionaryWithObjectsAndKeys:
+				  @"Carbon", @"Name", 
+				  [NSNumber numberWithDouble:1.99], @"Price", 
+				  [NSNumber numberWithBool:NO], @"Purchased",
+				  nil],
+				 [NSMutableDictionary dictionaryWithObjectsAndKeys:
+				  @"Nitrogen", @"Name", 
+				  [NSNumber numberWithDouble:1.99], @"Price", 
+				  [NSNumber numberWithBool:NO], @"Purchased",
+				  nil],
+				 [NSMutableDictionary dictionaryWithObjectsAndKeys:
+				  @"Oxygen", @"Name", 
+				  [NSNumber numberWithDouble:1.99], @"Price", 
+				  [NSNumber numberWithBool:NO], @"Purchased",
+				  nil],
+				 [NSMutableDictionary dictionaryWithObjectsAndKeys:
+				  @"Fluorine", @"Name", 
+				  [NSNumber numberWithDouble:1.99], @"Price", 
+				  [NSNumber numberWithBool:NO], @"Purchased",
+				  nil],
+				 [NSMutableDictionary dictionaryWithObjectsAndKeys:
+				  @"Neon", @"Name", 
+				  [NSNumber numberWithDouble:9.99], @"Price", 
+				  [NSNumber numberWithBool:NO], @"Purchased",
+				  nil],
+				 [NSMutableDictionary dictionaryWithObjectsAndKeys:
+				  @"Sodium", @"Name", 
+				  [NSNumber numberWithDouble:2.99], @"Price", 
+				  [NSNumber numberWithBool:NO], @"Purchased",
+				  nil],
+				 [NSMutableDictionary dictionaryWithObjectsAndKeys:
+				  @"Magnesium", @"Name", 
+				  [NSNumber numberWithDouble:2.99], @"Price", 
+				  [NSNumber numberWithBool:NO], @"Purchased",
+				  nil],
+				 nil] retain];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+	return YES;
+}
 
 - (void)viewDidUnload {
 	[products release], products = nil;

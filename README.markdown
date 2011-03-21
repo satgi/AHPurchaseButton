@@ -18,11 +18,12 @@ UIAlertView to simulate the feedback the user receives when making an actual In-
 
 ## Dependencies
 
-The only dependencies for using this class in your own project are the source files for the button itself,
+The only dependencies for using this class in your own project are the source files for the button itself (**AHPurchaseButton.h** and **AHPurchaseButton.m**),
 as well as three images corresponding to the visual states of the button:
-- purchase-button-price.png is the default background and corresponds to the display of the item price.
-- purchase-button-prompt.png is the background used when the "Buy Now" prompt (or equivalent) is showing.
-- purchase-button-purchased.png is the background for the inactive state of the button when the item has already been purchased.
+
+ - **purchase-button-price.png** is the default background and corresponds to the display of the item price.
+ - **purchase-button-prompt.png** is the background used when the "Buy Now" prompt (or equivalent) is showing.
+ - **purchase-button-purchased.png** is the background for the inactive state of the button when the item has already been purchased.
 
 Standard and Retina versions (@2x) of these images are included. Feel free to substitute your own.
 

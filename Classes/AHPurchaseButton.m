@@ -148,8 +148,7 @@ static CGPoint kLabelInsets = {9, 5}; // Selected based on the appearance of Pur
 	return state;
 }
 
-- (void)animationDidStop:(NSString *)animationName finished:(NSNumber *)finished context:(void *)context {
-	
+- (void)animationDidStop:(NSString *)animationName finished:(NSNumber *)finished context:(void *)context {	
 	if(needsRedrawForText)
 	{
 		self.currentTitle = [titlesForStates objectAtIndex:state];
@@ -210,6 +209,8 @@ static CGPoint kLabelInsets = {9, 5}; // Selected based on the appearance of Pur
 	}
 	else if(state == AHPurchaseButtonStatePurchasePrompt)
 	{
+		// Reverts button to showing price while user is prompted to complete purchase.
+		// To change this behavior, remove the line below and manage the state manually in your view controller.
 		[self setState:AHPurchaseButtonStatePrice animated:YES];
 	} 
 }

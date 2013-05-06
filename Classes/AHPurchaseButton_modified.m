@@ -1,17 +1,17 @@
-// 
+//
 // AHPurchaseButton.m
 // Copyright (C) 2011 by Auerhaus Development, LLC
-// 
+//
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -19,7 +19,7 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
-// 
+//
 
 #import "AHPurchaseButton.h"
 
@@ -63,39 +63,39 @@ static CGPoint kLabelInsets = {9, 5}; // Selected based on the appearance of Pur
 
 - (void)initializeView {
 	// Cache upper-right corner so we can expand left as necessary
-	upperRightOrigin = CGPointMake(self.frame.origin.x+self.frame.size.width, self.frame.origin.y);
+	upperRightOrigin = CGPointMake(self.frame.origin.x + self.frame.size.width, self.frame.origin.y);
 	
 	[self setOpaque:NO];
 	[self setBackgroundColor:[UIColor clearColor]];
 	[self setContentMode:UIViewContentModeRedraw];
-	font = [[UIFont boldSystemFontOfSize:12] retain];
-
+	font = [[UIFont boldSystemFontOfSize:14.0f] retain];
+    
 	// Cache default titles for various states
 	titlesForStates = [[NSMutableArray alloc] initWithCapacity:4];
-	[titlesForStates insertObject:@"" 
+	[titlesForStates insertObject:@""
 						  atIndex:AHPurchaseButtonStateUninitialized];
-	[titlesForStates insertObject:NSLocalizedString(@"FREE", @"Purchase price for free In-App Purchase items")
+	[titlesForStates insertObject:NSLocalizedString(@"免费", @"Purchase price for free In-App Purchase items")
 						  atIndex:AHPurchaseButtonStatePrice];
-	[titlesForStates insertObject:NSLocalizedString(@"BUY NOW", @"Purchase prompt for In-App Purchase Button") 
+	[titlesForStates insertObject:NSLocalizedString(@"现在购买", @"Purchase prompt for In-App Purchase Button")
 						  atIndex:AHPurchaseButtonStatePurchasePrompt];
-	[titlesForStates insertObject:NSLocalizedString(@"PURCHASED", @"Purchased title for In-App Purchase Button") 
-						  atIndex:AHPurchaseButtonStatePurchased];
+	[titlesForStates insertObject:NSLocalizedString(@"正在购买", @"Purchasing title for In-App Purchase Button")
+						  atIndex:AHPurchaseButtonStatePurchasing];
 	
 	// Cache stretchable image instances for various states
 	// TODO: these should be shared among all instances
 	imagesForStates = [[NSMutableArray alloc] initWithCapacity:4];
-	UIImage *priceImage = [[UIImage imageNamed:@"purchase-button-price.png"] 
+	UIImage *priceImage = [[UIImage imageNamed:@"purchase-button-price"]
 						   stretchableImageWithLeftCapWidth:10 topCapHeight:0];
-	UIImage *promptImage = [[UIImage imageNamed:@"purchase-button-prompt.png"] 
+	UIImage *promptImage = [[UIImage imageNamed:@"purchase-button-prompt"]
 							stretchableImageWithLeftCapWidth:10 topCapHeight:0];
-	UIImage *purchImage = [[UIImage imageNamed:@"purchase-button-purchased.png"] 
+	UIImage *purchImage = [[UIImage imageNamed:@"purchase-button-purchased"]
 						   stretchableImageWithLeftCapWidth:10 topCapHeight:0];
 	
 	[imagesForStates insertObject:priceImage atIndex:AHPurchaseButtonStateUninitialized];
 	[imagesForStates insertObject:priceImage atIndex:AHPurchaseButtonStatePrice];
 	[imagesForStates insertObject:promptImage atIndex:AHPurchaseButtonStatePurchasePrompt];
-	[imagesForStates insertObject:purchImage atIndex:AHPurchaseButtonStatePurchased];
-
+	[imagesForStates insertObject:purchImage atIndex:AHPurchaseButtonStatePurchasing];
+    
 	// Configure button for initially displaying price.
 	[self setState:AHPurchaseButtonStatePrice animated:NO];
 }
@@ -122,7 +122,7 @@ static CGPoint kLabelInsets = {9, 5}; // Selected based on the appearance of Pur
 	self.currentTitle = [titlesForStates objectAtIndex:state];
 	
 	self.currentBackgroundImage = [imagesForStates objectAtIndex:state];
-
+    
 	if(animated)
 	{
 		self.currentTitle = nil; // Hide text during animation to avoid unsightly stretching
@@ -140,6 +140,7 @@ static CGPoint kLabelInsets = {9, 5}; // Selected based on the appearance of Pur
 	{
 		[UIView commitAnimations];
 	}
+    
 }
 
 - (void)setState:(AHPurchaseButtonState)newState {
@@ -150,13 +151,13 @@ static CGPoint kLabelInsets = {9, 5}; // Selected based on the appearance of Pur
 	return state;
 }
 
-- (void)animationDidStop:(NSString *)animationName finished:(NSNumber *)finished context:(void *)context {	
+- (void)animationDidStop:(NSString *)animationName finished:(NSNumber *)finished context:(void *)context {
 	if(needsRedrawForText)
 	{
 		self.currentTitle = [titlesForStates objectAtIndex:state];
 		[self setNeedsDisplay];
 		needsRedrawForText = NO;
-	}	
+	}
 }
 
 - (void)resizeToFitLabelText {
@@ -166,45 +167,47 @@ static CGPoint kLabelInsets = {9, 5}; // Selected based on the appearance of Pur
 	
 	labelTextSize.width = MIN(labelTextSize.width, kMaximumTextWidth); // Maintain sanity
 	
-	CGSize newSize = CGSizeMake(labelTextSize.width + (kLabelInsets.x * 2), 
+	CGSize newSize = CGSizeMake(labelTextSize.width + (kLabelInsets.x * 2), //+ rand() / 10000000000.0,
 								labelTextSize.height + (kLabelInsets.y * 2));
 	
-	CGRect newFrame = CGRectMake(upperRightOrigin.x - newSize.width, upperRightOrigin.y, 
+	CGRect newFrame = CGRectMake(upperRightOrigin.x - newSize.width, upperRightOrigin.y,
 								 newSize.width, newSize.height);
-
+    
+//    self.frame = newFrame;
 	// Use the animatable properties in case we're being drawn with a transform
 	[self setBounds:CGRectMake(0, 0, newFrame.size.width, newFrame.size.height)];
-	[self setCenter:CGPointMake(CGRectGetMidX(newFrame), CGRectGetMidY(newFrame))];
+//	[self setCenter:CGPointMake(CGRectGetMidX(newFrame), CGRectGetMidY(newFrame))];
 }
 
 - (void)drawRect:(CGRect)rect
 {
 	[super drawRect:rect];
-
-    CGContextRef context = UIGraphicsGetCurrentContext();
-
+    
     [self.currentBackgroundImage drawInRect:rect];
-
-	if(state == AHPurchaseButtonStatePurchased)
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+	
+	if(state == AHPurchaseButtonStatePurchased || state == AHPurchaseButtonStatePurchasing)
 	{
-		CGFloat grayColor[] = { 0.75, 0.75, 0.75, 1.0 };
+		CGFloat grayColor[] = { 0.6, 0.6, 0.6, 1.0 };
 		CGContextSetFillColor(context, grayColor);
 	}
 	else
 	{
 		CGFloat whiteColor[] = { 1.0, 1.0, 1.0, 1.0 };
 		CGContextSetFillColor(context, whiteColor);
-
+        
 		UIColor *translucentBlackColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
 		CGContextSetShadowWithColor(context, CGSizeMake(0, -1), 0, [translucentBlackColor CGColor]);
 	}
-
+	
 	[self.currentTitle drawAtPoint:kLabelInsets withFont:font];
+
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 	[super touchesEnded:touches withEvent:event];
-
+    
 	if(state == AHPurchaseButtonStatePrice)
 	{
 		[self setState:AHPurchaseButtonStatePurchasePrompt animated:YES];
@@ -213,8 +216,8 @@ static CGPoint kLabelInsets = {9, 5}; // Selected based on the appearance of Pur
 	{
 		// Reverts button to showing price while user is prompted to complete purchase.
 		// To change this behavior, remove the line below and manage the state manually in your view controller.
-		[self setState:AHPurchaseButtonStatePrice animated:YES];
-	} 
+		[self setState:AHPurchaseButtonStatePurchasing animated:YES];
+	}
 }
 
 @end
